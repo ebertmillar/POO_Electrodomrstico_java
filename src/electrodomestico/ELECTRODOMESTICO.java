@@ -15,11 +15,11 @@ public class Electrodomestico {
     final static char CONSUMO_ENERGETICO = 'F';
     final static double PRECIO_BASE = 100;
     final static double PESO = 5;
-    private double precioBase;
-    private String color;
-    private char consumoEnergetico;
-    private double peso;
-    private String[] coloresDisponibles;
+    protected double precioBase;
+    protected String color;
+    protected char consumoEnergetico;
+    protected double peso;
+    protected String[] coloresDisponibles;
 
     /**
      * constructor por defecto sin parametros
@@ -38,7 +38,7 @@ public class Electrodomestico {
      * @param precioBase
      * @param peso
      */
-    public Electrodomestico(int precioBase, double peso) {
+    public Electrodomestico(double precioBase, double peso) {
         this.precioBase = precioBase;
         this.peso = peso;
         this.color = COLOR;
@@ -59,6 +59,11 @@ public class Electrodomestico {
         comprobarConsumoEnergetico(consumoEnergetico);
         this.peso = peso;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Electrodomestico{" + "precioBase=" + precioBase + ", color=" + color + ", consumoEnergetico=" + consumoEnergetico + ", peso=" + peso + ", coloresDisponibles=" + coloresDisponibles + '}';
     }
 
     public double getPrecioBase() {
@@ -122,50 +127,34 @@ public class Electrodomestico {
         }
     }
 
-    public void precioFinal() {
+    public double precioFinal() {
 
-        double precio_base=0;
-        
+        double precio_base = 0;
+
         switch (consumoEnergetico) {
             case 'A':
                 precio_base = 100;
-                precioTamañoConsumo(precio_base);
                 break;
             case 'B':
                 precio_base = 80;
-                precioTamañoConsumo(precio_base);
                 break;
             case 'C':
                 precio_base = 60;
-                precioTamañoConsumo(precio_base);
                 break;
             case 'D':
                 precio_base = 50;
-                precioTamañoConsumo(precio_base);
-
                 break;
             case 'E':
                 precio_base = 30;
-                precioTamañoConsumo(precio_base);
-
                 break;
             case 'F':
                 precio_base = 10;
-                precioTamañoConsumo(precio_base);
-
                 break;
 
             default:
                 throw new AssertionError();
         }
 
-    }
-
-    /**
-     * metodo aumenta el precio base segun el peso
-     * @param precio_base 
-     */
-    void precioTamañoConsumo(double precio_base) {
         if (peso >= 0 && peso < 19) {
             precio_base += 10;
         } else if (peso >= 20 && peso < 49) {
@@ -175,6 +164,11 @@ public class Electrodomestico {
         } else if (peso >= 80) {
             precio_base += 100;
         }
+
+        return precio_base;
+
     }
+
+  
 
 }
